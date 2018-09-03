@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ef9a9a</color>
+    <color name="colorPrimaryDark">#ba6b6c</color>
+    <color name="colorAccent">#ffcccb</color>
+
+    <color name="search_field_text">#000</color>
+    <color name="anime_title_color">#000</color>
+    <color name="anime_description_color">#999b9b</color>
+</resources>

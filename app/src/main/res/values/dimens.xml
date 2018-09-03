@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="toolbar_height">60dp</dimen>
+    <dimen name="anime_title_size">18sp</dimen>
+    <dimen name="anime_description_size">17sp</dimen>
+</resources>

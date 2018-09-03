@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp"
+    app:cardCornerRadius="15dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/animeTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:textColor="@color/anime_title_color"
+            android:textSize="@dimen/anime_title_size"
+            android:ellipsize="end"
+            android:layout_marginLeft="5dp"
+            app:layout_constraintLeft_toRightOf="@id/animeImage"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/animeImage"
+            tools:text="Title" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/animeType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="3"
+            android:textColor="@color/anime_description_color"
+            android:textSize="@dimen/anime_description_size"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/animeTitle"
+            app:layout_constraintTop_toBottomOf="@id/animeTitle"
+            tools:text="Anime Type" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/animeDescription"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:maxLines="5"
+            android:textColor="@color/anime_description_color"
+            android:textSize="@dimen/anime_description_size"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/animeTitle"
+            app:layout_constraintTop_toBottomOf="@id/animeType"
+            app:layout_constraintBottom_toBottomOf="@id/animeImage"
+            tools:text="I got description" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/animeImage"
+            android:layout_width="100dp"
+            android:layout_height="200dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="0dp" />
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>
