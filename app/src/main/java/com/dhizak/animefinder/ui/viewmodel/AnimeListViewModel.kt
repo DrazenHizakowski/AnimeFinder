@@ -1,11 +1,10 @@
 package com.dhizak.animefinder.ui.viewmodel
 
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.dhizak.animefinder.model.Top
-import android.arch.lifecycle.LiveData
-import android.util.Log
 import com.dhizak.animefinder.AnimeFinderApplication
+import com.dhizak.animefinder.model.Top
 import com.dhizak.animefinder.model.api.AnimeRepositoryImpl
 import com.dhizak.animefinder.model.repository.AnimeRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -31,7 +30,7 @@ class AnimeListViewModel : ViewModel() {
         if(topAnime.value?.size == 0 && page == 1){
             fetchAnime(page)
         }else if(topAnime.value?.size!!.div(PAGE_SIZE) >= page){
-            Log.e(TAG,"wrong part")
+
         }else{
             fetchAnime(page)
         }
@@ -44,16 +43,14 @@ class AnimeListViewModel : ViewModel() {
         }
         animeRepo.getTopAnime(page).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    Log.e(TAG,"GOT THIS FROM API : ${it.top.size}")
                     topAnime.value?.addAll(it.top)
                     topAnime.postValue(topAnime.value)
                 }, {
-                    Log.e(TAG,"GOT SOME SHITY ERROR ${it.localizedMessage}")
                     it.printStackTrace()
                 })
     }
 
-    fun searchAnime(query : String,page : Int) : LiveData<MutableList<Top>>{
+    fun searchAnime(query : String,page : Int) {
         if(searchResult.value==null){
             searchResult.value = mutableListOf()
         }
@@ -64,6 +61,9 @@ class AnimeListViewModel : ViewModel() {
                 }, {
                     it.printStackTrace()
                 })
+    }
+
+    fun getAnimeListData() : LiveData<MutableList<Top>>{
         return searchResult
     }
 }

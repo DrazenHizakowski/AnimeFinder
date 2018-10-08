@@ -1,7 +1,7 @@
 package com.dhizak.animefinder.ui
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.Router
@@ -11,7 +11,6 @@ import com.dhizak.animefinder.R
 import com.dhizak.animefinder.model.api.AnimeRepositoryImpl
 import com.dhizak.animefinder.model.repository.AnimeRepository
 import com.dhizak.animefinder.ui.controllers.TopListController
-import com.facebook.drawee.backends.pipeline.Fresco
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
@@ -23,10 +22,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Fresco.initialize(this)
         setContentView(R.layout.activity_main)
         router = Conductor.attachRouter(this,changeHandler,savedInstanceState)
-
         if(!router.hasRootController()){
             router.setRoot(RouterTransaction.with(TopListController()))
         }

@@ -9,12 +9,15 @@ class AnimeFinderApplication : Application() {
 
     companion object {
         lateinit var myAnimeList : MyAnimeListInterface
+        lateinit var INSTANCE : AnimeFinderApplication
+            private set
     }
 
     override fun onCreate() {
         super.onCreate()
         Stetho.initializeWithDefaults(this)
         myAnimeList = RetrofitHelper.create()
+        INSTANCE = this
     }
 
 }

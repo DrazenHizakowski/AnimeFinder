@@ -41,7 +41,7 @@
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/animeDescription"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:maxLines="5"
             android:textColor="@color/anime_description_color"
             android:textSize="@dimen/anime_description_size"
@@ -50,18 +50,16 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="@id/animeTitle"
             app:layout_constraintTop_toBottomOf="@id/animeType"
-            app:layout_constraintBottom_toBottomOf="@id/animeImage"
             tools:text="I got description" />
 
-        <com.facebook.drawee.view.SimpleDraweeView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/animeImage"
             android:layout_width="100dp"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="0dp" />
+            />
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

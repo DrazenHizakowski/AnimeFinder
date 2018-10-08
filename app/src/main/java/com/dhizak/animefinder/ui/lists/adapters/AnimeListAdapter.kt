@@ -1,25 +1,24 @@
 package com.dhizak.animefinder.ui.lists.adapters
 
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.dhizak.animefinder.R
 import com.dhizak.animefinder.model.Top
 import com.dhizak.animefinder.ui.lists.holders.TopAnimeHolder
+import com.dhizak.animefinder.ui.lists.listeners.OnAnimeListListener
 
-class AnimeListAdapter : RecyclerView.Adapter<TopAnimeHolder>(), BaseAdapter<List<Top>> {
+class AnimeListAdapter(var listener : OnAnimeListListener) : RecyclerView.Adapter<TopAnimeHolder>(), BaseAdapter<List<Top>> {
 
     val TAG = "AnimeListAdapter"
+
 
     private var items: MutableList<Top> = mutableListOf()
 
     override fun addItems(items: List<Top>?) {
         if (items != null) {
-
             val before = items.size
             this.items.addAll(items)
-            Log.e(TAG,"adding items ${this.items.size}")
             notifyItemRangeInserted(before,this.items.size)
         }
     }
@@ -39,5 +38,6 @@ class AnimeListAdapter : RecyclerView.Adapter<TopAnimeHolder>(), BaseAdapter<Lis
 
     override fun onBindViewHolder(holder: TopAnimeHolder, position: Int) {
         holder.bind(items[position])
+        holder.itemView.setOnClickListener { listener.onAnimeSelected(items[position].mal_id!!) }
     }
 }
