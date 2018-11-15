@@ -7,6 +7,8 @@ import com.dhizak.animefinder.model.constants.SearchType
 import com.dhizak.animefinder.model.constants.TopSubtypes
 import com.dhizak.animefinder.model.constants.TopType
 import io.reactivex.Observable
+import kotlinx.coroutines.Deferred
+import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -15,14 +17,14 @@ import retrofit2.http.Query
 interface MyAnimeListInterface {
 
     @GET("/top/{type}/{page}/{subtypes}")
-    fun getAnimeList(@Path("type") type: TopType, @Path("page") page: Int, @Path("subtypes") subtypes: TopSubtypes): Observable<TopItemsEnvelope>
+    fun getAnimeList(@Path("type") type: TopType, @Path("page") page: Int, @Path("subtypes") subtypes: TopSubtypes): Deferred<Response<TopItemsEnvelope>>
 
     @GET("/top/{type}/{page}")
-    fun getAnimeList(@Path("type") type: TopType, @Path("page") page: Int): Observable<TopItemsEnvelope>
+    fun getAnimeList(@Path("type") type: TopType, @Path("page") page: Int): Deferred<Response<TopItemsEnvelope>>
 
     @GET("anime/{id}")
-    fun getAnime(@Path("id") id: Int): Observable<Anime>
+    fun getAnime(@Path("id") id: Int): Deferred<Response<Anime>>
 
     @GET("/search/{type}")
-    fun searchAnime(@Path("type") type: SearchType, @Query("q") query: String, @Query("page") page: Int): Observable<SearchResultEnvelope>
+    fun searchAnime(@Path("type") type: SearchType, @Query("q") query: String, @Query("page") page: Int):  Deferred<Response<SearchResultEnvelope>>
 }

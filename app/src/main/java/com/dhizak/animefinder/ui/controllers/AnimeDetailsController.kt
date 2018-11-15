@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_anime_description.*
 /**
  * Created by drazen on 26.09.18.
  */
-class AnimeDetailsController : YouTubeBaseActivity() {
+class AnimeDetailsController : FragmentActivity() {
 
     companion object {
         val ANIME_ID = "anime_id"
@@ -28,8 +28,8 @@ class AnimeDetailsController : YouTubeBaseActivity() {
         setContentView(R.layout.fragment_anime_description)
         animeDetailsViewModel = ViewModelProviders.of(this).get(AnimeDetailsViewModel::class.java)
         if (intent.hasExtra(ANIME_ID)) {
-            animeDetailsViewModel.getAnime(intent.getIntExtra(ANIME_ID, -1)).observe(this,
-                    Observer<Anime> { t -> setAnimeView(t) })
+          //  animeDetailsViewModel.getAnime(intent.getIntExtra(ANIME_ID, -1)).observe(this,
+            ///        Observer<Anime> { t -> setAnimeView(t) })
         }else{
             finish()
         }

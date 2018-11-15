@@ -11,7 +11,6 @@ import com.dhizak.animefinder.R
 import com.dhizak.animefinder.model.api.AnimeRepositoryImpl
 import com.dhizak.animefinder.model.repository.AnimeRepository
 import com.dhizak.animefinder.ui.controllers.TopListController
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -28,7 +27,7 @@ class MainActivity : AppCompatActivity() {
             router.setRoot(RouterTransaction.with(TopListController()))
         }
         animeItemsRepository = AnimeRepositoryImpl(AnimeFinderApplication.myAnimeList)
-        animeItemsRepository.getTopAnime(1).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe()
+        //animeItemsRepository.getTopAnime(1)
     }
 
     fun changeController(controller: Controller){
@@ -39,6 +38,5 @@ class MainActivity : AppCompatActivity() {
         if(!router.handleBack()){
             super.onBackPressed()
         }
-//        router.popCurrentController()
     }
 }
