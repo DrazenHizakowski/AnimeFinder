@@ -12,7 +12,6 @@ class AnimeListAdapter(var listener : OnAnimeListListener) : RecyclerView.Adapte
 
     val TAG = "AnimeListAdapter"
 
-
     private var items: MutableList<Top> = mutableListOf()
 
     override fun addItems(items: List<Top>?) {
@@ -21,6 +20,12 @@ class AnimeListAdapter(var listener : OnAnimeListListener) : RecyclerView.Adapte
             this.items.addAll(items)
             notifyItemRangeInserted(before,this.items.size)
         }
+    }
+
+    override fun insertNewItems(items: List<Top>?) {
+        this.items.clear()
+        this.items.addAll(items!!)
+        notifyDataSetChanged()
     }
 
     override fun clearItems() {

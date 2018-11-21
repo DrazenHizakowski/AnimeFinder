@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AnimeFinder</string>
+    <string name="failed_to_get_anime">Failed to get this anime details!</string>
 </resources>

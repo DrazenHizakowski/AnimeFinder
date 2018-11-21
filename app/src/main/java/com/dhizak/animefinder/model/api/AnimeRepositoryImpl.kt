@@ -8,13 +8,12 @@ import com.dhizak.animefinder.model.constants.SearchType
 import com.dhizak.animefinder.model.constants.TopSubtypes
 import com.dhizak.animefinder.model.constants.TopType
 import com.dhizak.animefinder.model.repository.AnimeRepository
-import io.reactivex.Observable
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 
 class AnimeRepositoryImpl(val animeListRetrofit: MyAnimeListInterface) : AnimeRepository {
 
-    override fun getAnime(animeId: Int): Deferred<retrofit2.Response<Anime>> {
+    override fun getAnime(animeId: Int): Deferred<Response<Anime>> {
         return animeListRetrofit.getAnime(animeId)
     }
 

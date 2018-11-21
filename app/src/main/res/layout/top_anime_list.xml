@@ -14,7 +14,7 @@
         android:background="@color/colorPrimary"/>
 
     <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/filterList"
+        android:id="@+id/filterButton"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/toolbar_height"
         android:layout_marginRight="10dp"
@@ -50,7 +50,7 @@
         android:layout_height="@dimen/toolbar_height"
         android:padding="10dp"
         android:background="@null"
-        app:layout_constraintRight_toLeftOf="@id/filterList"
+        app:layout_constraintRight_toLeftOf="@id/filterButton"
         app:layout_constraintTop_toTopOf="@id/toolbar_background"
         app:srcCompat="@drawable/ic_clear_black_24dp"
         app:layout_constraintBottom_toBottomOf="@id/toolbar_background"/>

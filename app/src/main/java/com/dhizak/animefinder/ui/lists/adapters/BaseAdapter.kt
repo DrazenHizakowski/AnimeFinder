@@ -4,5 +4,7 @@ interface BaseAdapter<T> {
 
     fun addItems(items : T?)
 
+    fun insertNewItems(items : T?)
+
     fun clearItems()
 }

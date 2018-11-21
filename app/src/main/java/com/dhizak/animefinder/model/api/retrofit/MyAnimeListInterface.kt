@@ -6,10 +6,8 @@ import com.dhizak.animefinder.model.api.envelope.TopItemsEnvelope
 import com.dhizak.animefinder.model.constants.SearchType
 import com.dhizak.animefinder.model.constants.TopSubtypes
 import com.dhizak.animefinder.model.constants.TopType
-import io.reactivex.Observable
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
-import retrofit2.http.Field
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

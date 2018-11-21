@@ -3,65 +3,73 @@ package com.dhizak.animefinder.ui.viewmodel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.dhizak.animefinder.AnimeFinderApplication
+import android.util.Log
 import com.dhizak.animefinder.model.Top
-import com.dhizak.animefinder.model.api.AnimeRepositoryImpl
 import com.dhizak.animefinder.model.repository.AnimeRepository
-import io.reactivex.schedulers.Schedulers
+import com.dhizak.animefinder.ui.lists.adapters.AnimeListAdapter
+import com.dhizak.animefinder.ui.states.intents.AnimeListViewIntents
+import com.dhizak.animefinder.ui.states.states.AnimeListViewState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import org.koin.standalone.KoinComponent
+import org.koin.standalone.inject
 import kotlin.coroutines.CoroutineContext
 
 
-class AnimeListViewModel : ViewModel(), CoroutineScope {
-
-    override val coroutineContext: CoroutineContext = Dispatchers.Main
+class AnimeListViewModel : BaseViewModel<AnimeListViewIntents, AnimeListViewState>(), CoroutineScope, KoinComponent {
 
     val TAG = "AnimeListViewModel"
 
+    override val coroutineContext: CoroutineContext = Dispatchers.Main
     val PAGE_SIZE = 50
+    private val animeRepo: AnimeRepository  by inject()
+    private var lastQuery = ""
 
-    private val animeRepo: AnimeRepository = AnimeRepositoryImpl(AnimeFinderApplication.myAnimeList)
-
-    private var topAnime: MutableLiveData<MutableList<Top>> = MutableLiveData()
-
-    private var searchResult: MutableLiveData<MutableList<Top>> = MutableLiveData()
-
-    fun getTopAnime(page: Int): LiveData<MutableList<Top>> {
-        if (topAnime.value == null) {
-            topAnime.value = mutableListOf()
+    override fun gotFromView(viewAction: AnimeListViewIntents): Unit = when (viewAction) {
+        is AnimeListViewIntents.GetAnime -> {
+            if (viewAction.query.isEmpty()) {
+                getTopAnime((viewAction.offset / PAGE_SIZE)+1)
+            }else{
+                searchAnimeAsync(viewAction.query,(viewAction.offset / PAGE_SIZE)+1)
+            }
         }
-        if (topAnime.value?.size == 0 && page == 1) {
-            fetchAnime(page)
-        } else if (topAnime.value?.size!!.div(PAGE_SIZE) >= page) {
+    }
 
-        } else {
-            fetchAnime(page)
-        }
-        return topAnime
+    private fun searchAnimeAsync(query: String, i: Int) {
+        searchAnime(query,i)
+    }
+
+    fun getTopAnime(page: Int) {
+        fetchAnime(page)
     }
 
     fun fetchAnime(page: Int) = launch {
-        if (topAnime.value == null) {
-            topAnime.value = mutableListOf()
+        val deferred = animeRepo.getTopAnime(page)
+        val result = deferred.await()
+        if (result.isSuccessful) {
+            if (page == 0) {
+                postToView(AnimeListViewState.InsertNewAnime(lastQuery, result.body()!!.top))
+            } else {
+                postToView(AnimeListViewState.UpdateAnimeList(lastQuery, result.body()!!.top))
+            }
+        } else {
+            //error handling
         }
-        val result = animeRepo.getTopAnime(page)
-        topAnime.value?.addAll(result.await().body()?.top!!)
-        topAnime.postValue(topAnime.value)
     }
 
     fun searchAnime(query: String, page: Int) = launch {
-        if (searchResult.value == null) {
-            searchResult.value = mutableListOf()
-        }
-        val result = animeRepo.searchAnime(query, page)
-        searchResult.value?.addAll(result.await()?.body()?.result!!)
-        searchResult.postValue(searchResult.value)
-    }
+        val deferred = animeRepo.searchAnime(query, page)
+        val result = deferred.await()
+        if (result.isSuccessful) {
+            if (page == 0) {
+                postToView(AnimeListViewState.InsertNewAnime(lastQuery, result.body()!!.result))
+            } else {
+                postToView(AnimeListViewState.UpdateAnimeList(lastQuery, result.body()!!.result))
+            }
+        } else {
 
-    fun getAnimeListData(): LiveData<MutableList<Top>> {
-        return searchResult
+        }
+        lastQuery = query
     }
 }
